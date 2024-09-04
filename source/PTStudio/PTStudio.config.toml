@@ -1,0 +1,8 @@
+pluginsLoaded = [
+    "carb.input.plugin",
+    "carb.simplegui.plugin",
+    "carb.windowing-glfw.plugin",
+]
+
+[log]
+level = "info"

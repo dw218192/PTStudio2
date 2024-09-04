@@ -1,0 +1,11 @@
+<project toolsVersion="5.6">
+  <dependency name="omni_core_materials" linkPath="../_build/target-deps/omni_core_materials">
+    <package name="omni_core_materials" version="1.1.2.1-0881c257" />
+  </dependency>
+  <dependency name="carb_sdk_plugins" linkPath="../_build/target-deps/carb_sdk_plugins">
+    <package name="carb_sdk+plugins.${platform}" version="167.3+release167.tc10550.94025cb3" />
+  </dependency>
+  <dependency name="usd_$config" linkPath="../_build/target-deps/usd/$config">
+    <label name="usd.py310.$platform.${config}@0.22.08+latest" />
+  </dependency>
+</project>
