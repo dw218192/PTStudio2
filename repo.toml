@@ -1,0 +1,72 @@
+[repo]
+name = "PTStudio2"
+extra_tool_paths.'++' = [
+    "${root}/tools/custom_tools"
+]
+import_optional_configs = [
+    "_build/target-deps/omni_connect_sdk/debug/dev/tools/repoman/connect-defaults.toml",
+    "_build/target-deps/omni_connect_sdk/release/dev/tools/repoman/connect-defaults.toml"
+]
+
+[repo.folders]
+version_file = "CHANGELOG.md"
+
+[repo_install_sdk]
+enabled = true
+usd = "pxr-23_11"
+python = "310"
+nucleus = "on"
+
+[repo_build]
+fetch.packman_target_files_to_pull."++" = [
+    "${root}/deps/connect-sdk-deps.packman.xml",
+]
+
+stage_files.allowed_paths."++" = [
+    "${root}/.vscode",
+]
+
+default_build_config = ["debug", "release"]
+# pre_build.commands happens after project generation, this is too late
+fetch.after_pull_commands = []
+
+msbuild.sln_file = "PTStudio.sln"
+msbuild.vs_version = 'vs2019'
+docker.enabled = false
+telemetry.enabled = false
+
+fetch.generated_packman_file = "${root}/_build/${platform}/${config}/dev/deps/all-deps.packman.xml"
+
+post_build.commands = [
+    [
+        "$root/repo${shell_ext}",
+        "install_sdk",
+        "-c", "$config",
+        "--staging-dir", "_build",
+        "--install-dir", "_build/intermediate/sdk-runtime/$config",
+    ],
+]
+
+[repo_test]
+default_config = "release"
+
+# Example of Python "pytest"
+[repo_test.suites.pytest]
+kind = "pytest"
+
+# Record test results to file. Provide a file path ending in .xml extension
+# to record a junit compatible report.
+log_file = "_testoutput/results.xml"
+
+# Specify extra paths to include in PYTHONPATH. Supports wildcards.
+# Note pythonpath is also supported for backwards compatibility.
+python_paths = []
+
+# Specify suite specific environment variables.
+module_path = "${root}/tests/test_all.py"
+
+env_vars = [
+#    [ "OMNI_BASE_URL", "" ],
+#    [ "OMNI_USER", "" ],
+#    [ "OMNI_PASS", "" ],
+]

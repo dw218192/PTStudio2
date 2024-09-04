@@ -1,0 +1,3 @@
+[repo_run]
+command = "run"
+entry_point = "${root}/tools/custom_tools/repo_run/main.py:setup_repo_tool"
